@@ -18,6 +18,7 @@ const Posts = () => {
 
     return (
         <>
+            <a href="/users">wanna see users ;)</a>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
                 {
                     posts.map((post) => {

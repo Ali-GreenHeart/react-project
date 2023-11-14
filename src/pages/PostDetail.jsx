@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { postActions } from '../store/slices/postSlice'
@@ -7,6 +7,7 @@ import { postActions } from '../store/slices/postSlice'
 const baseurl = 'https://dummyjson.com/posts/'
 const PostDetail = ({ }) => {
     const [user, setUser] = useState({})
+    const [comments, setComments] = useState([])
     const { id } = useParams()
     const { body, reactions, tags, title } = useSelector((state) => state.post.value)
     const dispatch = useDispatch()
@@ -22,6 +23,12 @@ const PostDetail = ({ }) => {
                     setUser({ firstName, image })
                 })
             })
+            .then(() => {
+                axios.get(`https://dummyjson.com/comments?limit=340`).then(({ data }) => {
+                    const postsComments = data.comments.filter(({ postId }) => postId == id)
+                    setComments(postsComments)
+                })
+            })
     }, [id])
 
     return (
@@ -34,6 +41,18 @@ const PostDetail = ({ }) => {
             <button onClick={() => {
                 dispatch(postActions.likeIt())
             }}>🧡 {reactions}</button>
+
+            <h2>What people think about: </h2>
+            {
+                comments.map(({ id, body, user: { username } }) => {
+                    return (
+                        <div style={{ border: '1px solid gray', borderRadius: 5, padding: 5, margin: '5px 10' }} key={id}>
+                            <h3 style={{ margin: '0 0 3px' }}>{username}</h3>
+                            <p style={{ margin: 0 }}>{body}</p>
+                        </div>
+                    )
+                })
+            }
         </div>
     )
 }

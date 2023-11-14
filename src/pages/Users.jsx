@@ -20,6 +20,7 @@ const Users = () => {
 
     return (
         <>
+            <a href="/posts">what are happenning right now ;)</a>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
                 {
                     users.map(({ id, firstName, lastName, company, gender, image }) => {
