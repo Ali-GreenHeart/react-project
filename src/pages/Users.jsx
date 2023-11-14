@@ -20,22 +20,24 @@ const Users = () => {
 
     return (
         <>
-            <div>Bu users sehifesidir</div>
-            {
-                users.map(({ id, firstName, lastName, company, gender, image }) => {
-                    return (
-                        <UserCard
-                            key={id}
-                            image={image}
-                            to={`/users/${id}`}
-                            companyName={company.name}
-                            firstName={firstName}
-                            lastName={lastName}
-                            gender={gender}
-                        />
-                    )
-                })
-            }
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+                {
+                    users.map(({ id, firstName, lastName, company, gender, image }) => {
+                        return (
+                            <UserCard
+                                // style={{ flexGrow: '1' }}
+                                key={id}
+                                image={image}
+                                to={`/users/${id}`}
+                                companyName={company.name}
+                                firstName={firstName}
+                                lastName={lastName}
+                                gender={gender}
+                            />
+                        )
+                    })
+                }
+            </div>
         </>
     )
 }
